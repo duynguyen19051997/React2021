@@ -1,27 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { ExpensesList } from "./Components/ExpenseComponent/ExpensesList";
+import { Card } from "./Components/UIComponent/UI";
+
+import "./App.css";
+
+const EXPENSE_LIST = [
+  { id: "1", title: "Motor", price: "15", date: new Date() },
+  { id: "2", title: "Car", price: "15", date: new Date() },
+  { id: "3", title: "Plain", price: "15", date: new Date() },
+  { id: "4", title: "Train", price: "15", date: new Date() },
+  { id: "5", title: "Wheel barrow", price: "15", date: new Date() },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Nguyen Vu Anh Duy --- React JavaScript Course 2021
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Card>
+      <ExpensesList expenses={EXPENSE_LIST} />
+    </Card>
   );
 }
 
