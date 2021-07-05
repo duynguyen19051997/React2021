@@ -1,3 +1,5 @@
+import { React, useState } from "react";
+
 import { ExpensesList } from "./Components/ExpenseComponent/ExpensesList";
 import { Card } from "./Components/UIComponent/UI";
 import { ExpenseForm } from "./Components/ExpenseComponent/ExpenseForm";
@@ -13,10 +15,17 @@ const EXPENSE_LIST = [
 ];
 
 function App() {
+  const [expenses, setExpenses] = useState(EXPENSE_LIST);
+
+  const addExpense = (expense) => {
+    const newExpense = { ...expense, id: Math.floor(Math.random()).toString() };
+    setExpenses([newExpense, ...expenses]);
+  };
+
   return (
     <Card>
-      <ExpenseForm />
-      <ExpensesList expenses={EXPENSE_LIST} />
+      <ExpenseForm onData={addExpense} />
+      <ExpensesList expenses={expenses} />
     </Card>
   );
 }

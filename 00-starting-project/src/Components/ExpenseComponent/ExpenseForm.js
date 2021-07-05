@@ -27,9 +27,22 @@ export const ExpenseForm = (props) => {
     console.log(enteredTitle);
     console.log(enteredPrice);
     console.log(new Date(enteredDate));
-    setEnteredTitle("");
-    setEnteredPrice("");
-    setEnteredDate("");
+    if (
+      enteredTitle.length >= 0 &&
+      parseFloat(enteredPrice) >= parseFloat(0) &&
+      enteredDate.length >= 8
+    ) {
+      props.onData({
+        title: enteredTitle,
+        price: enteredPrice,
+        date: new Date(enteredDate),
+      });
+      setEnteredTitle("");
+      setEnteredPrice("");
+      setEnteredDate("");
+    } else {
+      alert("Error");
+    }
   };
 
   return (
