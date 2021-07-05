@@ -1,5 +1,6 @@
 import { ExpensesList } from "./Components/ExpenseComponent/ExpensesList";
 import { Card } from "./Components/UIComponent/UI";
+import { ExpenseForm } from "./Components/ExpenseComponent/ExpenseForm";
 
 import "./App.css";
 
@@ -14,6 +15,7 @@ const EXPENSE_LIST = [
 function App() {
   return (
     <Card>
+      <ExpenseForm />
       <ExpensesList expenses={EXPENSE_LIST} />
     </Card>
   );
