@@ -6,9 +6,11 @@ import "./ExpensesList.css";
 export const ExpensesList = (props) => {
   let expensesContent =
     props.expenses.length > 0 ? (
-      props.expenses.map((x) => <ExpenseItem key={x.id} data={x} />)
+      props.expenses.map((x) => (
+        <ExpenseItem onDelete={props.onDelete} key={x.id} data={x} />
+      ))
     ) : (
-      <P></P>
+      <P>No expense</P>
     );
 
   return <Card>{expensesContent}</Card>;

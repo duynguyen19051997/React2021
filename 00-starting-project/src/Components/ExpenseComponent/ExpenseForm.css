@@ -21,6 +21,7 @@
 
 .input-label-area label {
   width: 10%;
+  font-weight: bold;
 }
 
 .input-label-area input {

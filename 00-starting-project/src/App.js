@@ -22,10 +22,17 @@ function App() {
     setExpenses([newExpense, ...expenses]);
   };
 
+  const deleteExpense = (id) => {
+    console.log(id);
+    setExpenses((prevExpense) => {
+      return prevExpense.filter((x) => x.id !== id);
+    });
+  };
+
   return (
     <Card>
       <ExpenseForm onData={addExpense} />
-      <ExpensesList expenses={expenses} />
+      <ExpensesList onDelete={deleteExpense} expenses={expenses} />
     </Card>
   );
 }
