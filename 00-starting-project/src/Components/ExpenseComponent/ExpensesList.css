@@ -1,0 +1,12 @@
+.no-expense {
+  width: 45%;
+  height: 12vh;
+  margin: 20px auto;
+  border: 1px solid rgb(32, 105, 110);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

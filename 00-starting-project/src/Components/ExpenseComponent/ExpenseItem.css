@@ -22,7 +22,7 @@
 }
 
 .expense-title {
-  width: 70%;
+  width: 60%;
   text-align: left;
 }
 
@@ -45,5 +45,10 @@
 .expense-price span {
   width: 100%;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
+}
+
+.expense-action {
+  width: 10%;
+  text-align: center;
 }

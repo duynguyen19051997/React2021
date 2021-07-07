@@ -27,3 +27,7 @@ button:hover {
   background-color: rgb(230, 221, 220);
   color: rgb(241, 52, 52);
 }
+
+.icon {
+  font-size: 25px;
+}

@@ -1,17 +1,10 @@
 import { React } from "react";
+import { XCircleFill } from "react-bootstrap-icons";
 
 import "./UI.css";
 
 export const Card = (props) => {
-  const deleteHandler = () => {
-    props.onDelete(props.id);
-  };
-
-  return (
-    <div onClick={deleteHandler} className={props.className}>
-      {props.children}
-    </div>
-  );
+  return <div className={props.className}>{props.children}</div>;
 };
 
 export const P = (props) => {
@@ -56,4 +49,12 @@ export const Button = (props) => {
       {props.children}
     </button>
   );
+};
+
+export const Delete = (props) => {
+  const deleteHandler = () => {
+    props.onDelete(props.id);
+  };
+
+  return <XCircleFill onClick={deleteHandler} className="icon" />;
 };

@@ -1,3 +1,5 @@
+import { React } from "react";
+
 import { Card, Span } from "../UIComponent/UI";
 
 import "./ExpenseDate.css";
@@ -14,7 +16,7 @@ export const ExpenseDate = (props) => {
         <Span>{year}</Span>
       </Card>
       <Card className="expense-date__month">
-        <Span>{month}</Span>
+        <Span>{month.substr(0, 3)}</Span>
       </Card>
       <Card className="expense-date__day">
         <Span>{day}</Span>

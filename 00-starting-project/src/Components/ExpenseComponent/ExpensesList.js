@@ -1,3 +1,5 @@
+import { React } from "react";
+
 import { ExpenseItem } from "./ExpenseItem";
 import { Card, P } from "../UIComponent/UI";
 
@@ -10,7 +12,7 @@ export const ExpensesList = (props) => {
         <ExpenseItem onDelete={props.onDelete} key={x.id} data={x} />
       ))
     ) : (
-      <P>No expense</P>
+      <P className="no-expense">No expense</P>
     );
 
   return <Card>{expensesContent}</Card>;
