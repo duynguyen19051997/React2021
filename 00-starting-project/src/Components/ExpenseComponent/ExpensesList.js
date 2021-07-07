@@ -2,6 +2,7 @@ import { React } from "react";
 
 import { ExpenseItem } from "./ExpenseItem";
 import { Card, P } from "../UIComponent/UI";
+import { ExpenseChart } from "./ExpenseChart";
 
 import "./ExpensesList.css";
 
@@ -15,5 +16,10 @@ export const ExpensesList = (props) => {
       <P className="no-expense">No expense</P>
     );
 
-  return <Card>{expensesContent}</Card>;
+  return (
+    <Card>
+      <ExpenseChart expense={props.expenses} />
+      {expensesContent}
+    </Card>
+  );
 };
