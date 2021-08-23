@@ -23,10 +23,6 @@ export const ExpenseForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    console.log(enteredTitle);
-    console.log(enteredPrice);
-    console.log(new Date(enteredDate));
     if (
       enteredTitle.length >= 0 &&
       parseFloat(enteredPrice) >= parseFloat(0) &&
