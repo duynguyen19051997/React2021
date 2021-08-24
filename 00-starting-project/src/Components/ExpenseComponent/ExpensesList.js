@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 
 import { ExpenseItem } from "./ExpenseItem";
-import { Card, P } from "../UIComponent/UI";
+import { Card, P, Label } from "../UIComponent/UI";
 import { ExpenseChart } from "./ExpenseChart";
 
 import "./ExpensesList.css";
@@ -14,12 +14,17 @@ export const ExpensesList = (props) => {
   ];
 
   const selectYearHandler = (event) => {
-    setYear(event.target.value);
+    setYear(parseInt(event.target.value));
   };
 
+  let expensesFilter =
+    year !== "" && !isNaN(year)
+      ? props.expenses.filter((x) => x.date.getFullYear() === year)
+      : props.expenses;
+
   let expensesContent =
-    props.expenses.length > 0 ? (
-      props.expenses.map((x) => (
+    expensesFilter.length > 0 ? (
+      expensesFilter.map((x) => (
         <ExpenseItem onDelete={props.onDelete} key={x.id} data={x} />
       ))
     ) : (
@@ -31,23 +36,26 @@ export const ExpensesList = (props) => {
 
   return (
     <Card>
-      <Card>
-        <table>
-          <tr>
-            <td>Choose year to search</td>
-            <td>
-              <select onChange={selectYearHandler}>
-                {yearFilterArr.length > 0 ? (
-                  yearFilterArr.map((x) => <option value={x}>{x}</option>)
-                ) : (
-                  <option value="2019">2019</option>
-                )}
-              </select>
-            </td>
-          </tr>
-        </table>
+      <Card className="expense-filter">
+        <Card className="expense-filter__label">
+          <Label>Choose year to search</Label>
+        </Card>
+        <Card className="expense-filter__select">
+          <select onChange={selectYearHandler}>
+            <option defaultValue>--Select--</option>
+            {yearFilterArr.length > 0 ? (
+              yearFilterArr.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))
+            ) : (
+              <option value="2019">2019</option>
+            )}
+          </select>
+        </Card>
       </Card>
-      <ExpenseChart expense={props.expenses} />
+      <ExpenseChart expense={expensesFilter} />
       {expensesContent}
     </Card>
   );

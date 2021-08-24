@@ -1,4 +1,5 @@
-.no-expense {
+.no-expense,
+.expense-filter {
   width: 45%;
   height: 12vh;
   margin: 20px auto;
@@ -8,4 +9,23 @@
   flex-direction: row;
   justify-content: space-around;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.expense-filter__label {
+  width: 40%;
+  text-align: center;
+}
+
+.expense-filter__label label {
+  width: auto;
+  font-weight: bold;
+}
+
+.expense-filter__select {
+  width: 60%;
+  text-align: left;
+}
+
+.expense-filter__select select {
+  width: 70%;
 }

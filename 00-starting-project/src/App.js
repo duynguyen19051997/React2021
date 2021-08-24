@@ -8,10 +8,10 @@ import "./App.css";
 
 const EXPENSE_LIST = [
   { id: "1", title: "Motor", price: "15", date: new Date() },
-  { id: "2", title: "Car", price: "15", date: new Date() },
-  { id: "3", title: "Plain", price: "15", date: new Date() },
-  { id: "4", title: "Train", price: "15", date: new Date() },
-  { id: "5", title: "Wheel barrow", price: "15", date: new Date() },
+  { id: "2", title: "Car", price: "16", date: new Date() },
+  { id: "3", title: "Plain", price: "17", date: new Date() },
+  { id: "4", title: "Train", price: "18", date: new Date() },
+  { id: "5", title: "Wheel barrow", price: "19", date: new Date() },
 ];
 
 function App() {
