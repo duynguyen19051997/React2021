@@ -1,24 +1,57 @@
-import React from 'react';
+import React, { useContext } from "react";
 
-import classes from './Navigation.module.css';
+import AuthContext from "../Store/auth-context";
+
+import classes from "./Navigation.module.css";
 
 const Navigation = (props) => {
+  // return (
+  //   <AuthContext.Consumer>
+  //     {(context) => {
+  //       return (
+  //         <nav className={classes.nav}>
+  //           <ul>
+  //             {context.isLoggedIn && (
+  //               <li>
+  //                 <a href="/">Users</a>
+  //               </li>
+  //             )}
+  //             {context.isLoggedIn && (
+  //               <li>
+  //                 <a href="/">Admin</a>
+  //               </li>
+  //             )}
+  //             {context.isLoggedIn && (
+  //               <li>
+  //                 <button onClick={props.onLogout}>Logout</button>
+  //               </li>
+  //             )}
+  //           </ul>
+  //         </nav>
+  //       );
+  //     }}
+  //   </AuthContext.Consumer>
+  // );
+
+  // the same as AuthContext.Consumer
+  const context = useContext(AuthContext);
+
   return (
     <nav className={classes.nav}>
       <ul>
-        {props.isLoggedIn && (
+        {context.isLoggedIn && (
           <li>
             <a href="/">Users</a>
           </li>
         )}
-        {props.isLoggedIn && (
+        {context.isLoggedIn && (
           <li>
             <a href="/">Admin</a>
           </li>
         )}
-        {props.isLoggedIn && (
+        {context.isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <button onClick={context.onLogout}>Logout</button>
           </li>
         )}
       </ul>
