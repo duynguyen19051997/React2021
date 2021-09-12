@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import { HeaderCartButton } from "./HeaderCartButton";
-import { HeaderUI, H1, Cart, Image } from "../UI/UI";
+import { HeaderUI, H1, CardNoStyle, Image } from "../UI/UI";
 
 import classes from "./Header.module.css";
 import mealsImage from "../../assets/meals.jpg";
@@ -13,9 +13,9 @@ export const Header = (props) => {
         <H1>Meals</H1>
         <HeaderCartButton />
       </HeaderUI>
-      <Cart className={classes["main-image"]}>
+      <CardNoStyle className={classes["main-image"]}>
         <Image src={mealsImage} alt="Meals" />
-      </Cart>
+      </CardNoStyle>
     </Fragment>
   );
 };
