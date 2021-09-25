@@ -11,7 +11,7 @@ export const Header = (props) => {
     <Fragment>
       <HeaderUI className={classes.header}>
         <H1>Meals</H1>
-        <HeaderCartButton />
+        <HeaderCartButton onClick={props.onShowCart} />
       </HeaderUI>
       <CardNoStyle className={classes["main-image"]}>
         <Image src={mealsImage} alt="Meals" />

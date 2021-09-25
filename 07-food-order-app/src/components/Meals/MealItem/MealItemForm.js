@@ -13,7 +13,8 @@ export const MealItemForm = (props) => {
         type="number"
         onChange={mealItemFormHandler}
         label="Number"
-        id="quantity"
+        id="amount"
+        defaultValue="1"
       />
       <Button>Add</Button>
     </form>

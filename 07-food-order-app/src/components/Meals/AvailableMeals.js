@@ -36,7 +36,7 @@ export const AvailableMeals = (props) => {
       <Card>
         <Ul>
           {DUMMY_MEALS != null && DUMMY_MEALS.length > 0
-            ? DUMMY_MEALS.map((x) => <MealItem meal={x} />)
+            ? DUMMY_MEALS.map((x) => <MealItem key={x.id} meal={x} />)
             : null}
         </Ul>
       </Card>
