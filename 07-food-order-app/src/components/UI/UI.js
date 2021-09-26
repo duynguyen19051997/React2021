@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 
 import classes from "./UI.module.css";
@@ -104,6 +104,21 @@ export const Input = (props) => {
     </CardNoStyle>
   );
 };
+
+export const InputRef = React.forwardRef((props, ref) => {
+  return (
+    <CardNoStyle className={classes.input}>
+      <label htmlFor={props.id}>{props.label}</label>
+      <input
+        key={props.id}
+        type={props.type}
+        id={props.id}
+        defaultValue={props.defaultValue}
+        ref={ref}
+      />
+    </CardNoStyle>
+  );
+});
 
 export const Backdrop = (props) => {
   return (
