@@ -13,7 +13,6 @@ export const MealItem = (props) => {
   const price = `$${meal.price.toFixed(2)}`;
 
   const addItemToCartHandler = (amount) => {
-    console.log(amount);
     cartContext.addItem({
       id: meal.id,
       name: meal.name,

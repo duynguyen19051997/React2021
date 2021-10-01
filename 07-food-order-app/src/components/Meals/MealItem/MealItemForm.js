@@ -17,9 +17,7 @@ export const MealItemForm = (props) => {
 
   const amountInputRef = useRef();
 
-  const mealItemFormHandler = (number) => {
-    console.log(number);
-  };
+  const mealItemFormHandler = (number) => {};
 
   const submitHandler = (event) => {
     event.preventDefault();

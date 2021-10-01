@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MealItem } from "../Meals/MealItem/MealItem";
+import { CartItem } from "./CartItem";
 import { CartContext } from "../store/cart-context";
 
 import { CardNoStyle, Ul, Span, Button, Modal } from "../UI/UI";
@@ -16,11 +16,29 @@ export const Cart = (props) => {
 
   const test = () => {};
 
+  const addItemToCart = (item) => {
+    cartContext.addItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      amount: 1,
+    });
+  };
+
+  const removeItemToCart = (id) => {
+    cartContext.removeItem(id);
+  };
+
   return (
     <Modal onClose={props.onClose}>
       <Ul className={classes["cart-items"]}>
         {cartItems.map((x) => (
-          <MealItem key={x.id} meal={x} />
+          <CartItem
+            key={x.id}
+            item={x}
+            onAdd={addItemToCart.bind(null, x)}
+            onRemove={removeItemToCart.bind(null, x.id)}
+          />
         ))}
       </Ul>
       <CardNoStyle className={classes.total}>
