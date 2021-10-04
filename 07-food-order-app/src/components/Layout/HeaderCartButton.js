@@ -18,10 +18,12 @@ export const HeaderCartButton = (props) => {
   }, 0);
 
   const btnClass = `${classes.button} ${btnIsHighlighted ? classes.bump : ""}`;
+
   useEffect(() => {
     if (items === 0) {
       return;
     }
+
     setBtnIsHighlighted(true);
 
     const timer = setTimeout(() => {
