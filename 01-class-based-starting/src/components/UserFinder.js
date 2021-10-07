@@ -1,25 +1,24 @@
 import { Fragment, Component } from "react";
 
 import Users from "./Users";
-
-import classes from "./UserFinder.module.css";
 import UsersContext from "../store/users-context";
 
-// const DUMMY_USERS = [
-//   { id: "u1", name: "Max" },
-//   { id: "u2", name: "Manuel" },
-//   { id: "u3", name: "Julie" },
-// ];
+import classes from "./UserFinder.module.css";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 class UserFinder extends Component {
-  static contextTypes = UsersContext;
+  static contextType = UsersContext;
+
   constructor(props) {
     super();
-    this.state = { filteredUsers: [], searchTerm: "" };
+    this.state = {
+      filteredUsers: [],
+      searchTerm: "",
+    };
   }
 
   componentDidMount() {
-    // sent request server and get data
+    // Send http request...
     this.setState({ filteredUsers: this.context.users });
   }
 
@@ -43,15 +42,17 @@ class UserFinder extends Component {
         <div className={classes.finder}>
           <input type="search" onChange={this.searchChangeHandler.bind(this)} />
         </div>
-        <Users users={this.state.filteredUsers} />
+        <ErrorBoundary>
+          <Users users={this.state.filteredUsers} />
+        </ErrorBoundary>
       </Fragment>
     );
   }
 }
 
-// const UserFinder1 = () => {
+// const UserFinder = () => {
 //   const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
-//   const [searchTerm, setSearchTerm] = useState("");
+//   const [searchTerm, setSearchTerm] = useState('');
 
 //   useEffect(() => {
 //     setFilteredUsers(
@@ -66,7 +67,7 @@ class UserFinder extends Component {
 //   return (
 //     <Fragment>
 //       <div className={classes.finder}>
-//         <input type="search" onChange={searchChangeHandler} />
+//         <input type='search' onChange={searchChangeHandler} />
 //       </div>
 //       <Users users={filteredUsers} />
 //     </Fragment>
