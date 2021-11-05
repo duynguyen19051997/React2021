@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartItem } from "./CartItem";
 import { CartContext } from "../store/cart-context";
 
 import { CardNoStyle, Ul, Span, Button, Modal } from "../UI/UI";
 
 import classes from "./Cart.module.css";
+import { CheckOut } from "./CheckOut";
 
 export const Cart = (props) => {
+  const [isCheckOut, setIsCheckOut] = useState(false);
   const cartContext = useContext(CartContext);
 
   const cartItems = cartContext.items;
@@ -14,7 +16,9 @@ export const Cart = (props) => {
   const totalPrice = `$${cartContext.totalPrice.toFixed(2)}`;
   const itemIsExist = cartContext.items.length > 0;
 
-  const test = () => {};
+  const orderHandler = () => {
+    setIsCheckOut(true);
+  };
 
   const addItemToCart = (item) => {
     cartContext.addItem({
@@ -28,6 +32,23 @@ export const Cart = (props) => {
   const removeItemToCart = (id) => {
     cartContext.removeItem(id);
   };
+
+  const cancelCheckout = () => {
+    setIsCheckOut(false);
+  };
+
+  const cartAction = (
+    <CardNoStyle className={classes.actions}>
+      <Button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </Button>
+      {itemIsExist && (
+        <Button className={classes.button} onClick={orderHandler}>
+          Order
+        </Button>
+      )}
+    </CardNoStyle>
+  );
 
   return (
     <Modal onClose={props.onClose}>
@@ -49,16 +70,14 @@ export const Cart = (props) => {
         <Span>Total Price:</Span>
         <Span>{totalPrice}</Span>
       </CardNoStyle>
-      <CardNoStyle className={classes.actions}>
-        <Button className={classes["button--alt"]} onClick={props.onClose}>
-          Close
-        </Button>
-        {itemIsExist && (
-          <Button className={classes.button} onClick={test}>
-            Order
-          </Button>
-        )}
-      </CardNoStyle>
+
+      {isCheckOut && (
+        <CardNoStyle>
+          <CheckOut onCancel={cancelCheckout} />
+        </CardNoStyle>
+      )}
+
+      {!isCheckOut && cartAction}
     </Modal>
   );
 };
