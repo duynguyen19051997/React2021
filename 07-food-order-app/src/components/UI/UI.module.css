@@ -24,6 +24,11 @@
   padding-left: 0.5rem;
 }
 
+.error-text {
+  margin-left: 10px;
+  color: red;
+}
+
 .backdrop {
   position: fixed;
   top: 0;

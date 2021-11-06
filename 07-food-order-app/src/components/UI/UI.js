@@ -87,20 +87,21 @@ export const Li = (props) => {
 };
 
 export const Input = (props) => {
-  const inputHandler = (event) => {
-    props.onChange(event.target.value);
-  };
-
   return (
-    <CardNoStyle className={classes.input}>
+    <CardNoStyle className={props.className}>
       <label htmlFor={props.id}>{props.label}</label>
       <input
         key={props.id}
         type={props.type}
         id={props.id}
         defaultValue={props.defaultValue}
-        onChange={inputHandler}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
+        value={props.value}
       />
+      {props.inputHasError && (
+        <p className={classes["error-text"]}>{props.error}</p>
+      )}
     </CardNoStyle>
   );
 };

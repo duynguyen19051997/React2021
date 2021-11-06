@@ -6,6 +6,8 @@
 
 .control {
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .control label {
@@ -16,10 +18,28 @@
 
 .control input {
   font: inherit;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 20rem;
+  width: 15rem;
   max-width: 100%;
+  margin-left: 10px;
+}
+
+.control input:focus {
+  outline: none;
+  border-color: #240370;
+  background-color: #e0d4fd;
+}
+
+.invalid input {
+  border: 1px solid #b40e0e;
+  background-color: #fddddd;
+}
+
+.invalid input:focus {
+  border-color: #ff8800;
+  background-color: #fbe8d2;
 }
 
 .actions {
@@ -52,13 +72,4 @@
 .actions .submit:hover,
 .actions .submit:active {
   background-color: #7a2706;
-}
-
-.invalid label {
-  color: #ca3e51;
-}
-
-.invalid input {
-  border-color: #aa0b20;
-  background-color: #ffeff1;
 }

@@ -2,13 +2,14 @@ import { useContext, useState } from "react";
 import { CartItem } from "./CartItem";
 import { CartContext } from "../store/cart-context";
 
-import { CardNoStyle, Ul, Span, Button, Modal } from "../UI/UI";
+import { CardNoStyle, Ul, Span, Button, Modal, P } from "../UI/UI";
 
 import classes from "./Cart.module.css";
 import { CheckOut } from "./CheckOut";
 
 export const Cart = (props) => {
   const [isCheckOut, setIsCheckOut] = useState(false);
+  const [isAddingSuccess, setIsAddSuccess] = useState(false);
   const cartContext = useContext(CartContext);
 
   const cartItems = cartContext.items;
@@ -17,6 +18,7 @@ export const Cart = (props) => {
   const itemIsExist = cartContext.items.length > 0;
 
   const orderHandler = () => {
+    setIsAddSuccess(false);
     setIsCheckOut(true);
   };
 
@@ -50,6 +52,22 @@ export const Cart = (props) => {
     </CardNoStyle>
   );
 
+  const submitOrderHandler = async (userData) => {
+    const response = await fetch(
+      "https://react-http-66256-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user: userData, orderItems: cartContext.items }),
+      }
+    );
+
+    if (response.ok) {
+      setIsCheckOut(false);
+      cartContext.clearCart();
+    }
+  };
+
   return (
     <Modal onClose={props.onClose}>
       <Ul className={classes["cart-items"]}>
@@ -71,9 +89,13 @@ export const Cart = (props) => {
         <Span>{totalPrice}</Span>
       </CardNoStyle>
 
+      {isAddingSuccess && (
+        <P className={classes["success-error"]}>Order success</P>
+      )}
+
       {isCheckOut && (
         <CardNoStyle>
-          <CheckOut onCancel={cancelCheckout} />
+          <CheckOut onCancel={cancelCheckout} onConfirm={submitOrderHandler} />
         </CardNoStyle>
       )}
 
