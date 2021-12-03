@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { counterActions } from "../store/index";
 
 import classes from "./Counter.module.css";
 
@@ -53,9 +54,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    increment: () => dispatch({ type: "INCREMENT" }),
-    decrement: () => dispatch({ type: "DECREMENT" }),
-    toggle: () => dispatch({ type: "TOGGLE" }),
+    increment: () => dispatch(counterActions.increment()), // dispatch({ type: 'INCREMENT'})
+    decrement: () => dispatch(counterActions.decrement()), // dispatch({ type: 'DECREMENT'})
+    toggle: () => dispatch(counterActions.toggle()), // dispatch({ type: 'TOGGLE'})
   };
 };
 
