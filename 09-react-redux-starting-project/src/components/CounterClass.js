@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { counterActions } from "../store/index";
+import { counterActions } from "../store/counter";
 
 import classes from "./Counter.module.css";
 
@@ -49,7 +49,10 @@ class CounterClass extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { counter: state.counter, showCounter: state.showCounter };
+  return {
+    counter: state.counter.value,
+    showCounter: state.counter.showCounter,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
