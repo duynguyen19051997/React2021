@@ -1,33 +1,61 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useParams, Route, Link, useRouteMatch } from "react-router-dom";
 
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
 import NoQuotesFound from "../components/quotes/NoQuotesFound";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
+import useHttp from "../hooks/use-http";
+import { getSingleQuote } from "../lib/api";
 
-const DUMMY_QUOTES = [
-  { id: "q1", author: "Duy", text: "My Quote 1" },
-  { id: "q2", author: "Duy", text: "My Quote 2" },
-  { id: "q3", author: "Duy", text: "My Quote 3" },
-  { id: "q4", author: "Duy", text: "My Quote 4" },
-  { id: "q5", author: "Duy", text: "My Quote 5" },
-];
+// const DUMMY_QUOTES = [
+//   { id: "q1", author: "Duy", text: "Learn React is great" },
+//   { id: "q2", author: "Duy", text: "Hello world" },
+//   { id: "q3", author: "Duy", text: "Change to be stronger" },
+//   { id: "q4", author: "Duy", text: "Nothing make you sad" },
+//   { id: "q5", author: "Duy", text: "Believe in you" },
+// ];
 
 export const QuoteDetail = (props) => {
   const match = useRouteMatch();
   const params = useParams();
 
-  console.log(match);
+  const {
+    sendRequest,
+    status,
+    data: loadedQuote,
+    error,
+  } = useHttp(getSingleQuote, true);
 
-  const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
+  useEffect(() => {
+    sendRequest(params.quoteId);
+  }, [sendRequest, params.quoteId]);
 
-  if (!quote) {
+  // const loadedQuote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
+
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="centered focus">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (status === "completed" && !loadedQuote) {
     return <NoQuotesFound />;
   }
 
   return (
     <Fragment>
-      <HighlightedQuote author={quote.author} text={quote.text} />
+      <HighlightedQuote author={loadedQuote.author} text={loadedQuote.text} />
       <Route path={match.path} exact>
         <div className="centered">
           <Link className="btn--flat" to={`${match.url}/comments`}>
