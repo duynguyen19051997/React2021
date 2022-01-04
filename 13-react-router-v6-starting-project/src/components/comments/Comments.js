@@ -1,34 +1,32 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
+
+import classes from "./Comments.module.css";
+import NewCommentForm from "./NewCommentForm";
 import useHttp from "../../hooks/use-http";
 import { getAllComments } from "../../lib/api";
 import LoadingSpinner from "../UI/LoadingSpinner";
-
-import classes from "./Comments.module.css";
 import CommentsList from "./CommentsList";
-import NewCommentForm from "./NewCommentForm";
 
 const Comments = () => {
   const [isAddingComment, setIsAddingComment] = useState(false);
   const params = useParams();
-  const {
-    sendRequest,
-    status,
-    data: loadedComments,
-  } = useHttp(getAllComments, true);
+
+  const { quoteId } = params;
+
+  const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
 
   useEffect(() => {
-    sendRequest(params.quoteId);
-  }, [sendRequest, params.quoteId]);
+    sendRequest(quoteId);
+  }, [quoteId, sendRequest]);
 
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
 
   const addedCommentHandler = useCallback(() => {
-    sendRequest(params.quoteId);
-    setIsAddingComment(false);
-  }, [sendRequest, params.quoteId]);
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
 
   let comments;
 
@@ -48,11 +46,7 @@ const Comments = () => {
     status === "completed" &&
     (!loadedComments || loadedComments.length === 0)
   ) {
-    comments = (
-      <div className="centered">
-        <p>No comment were added yet!</p>
-      </div>
-    );
+    comments = <p className="centered">No comments were added yet!</p>;
   }
 
   return (
@@ -65,7 +59,7 @@ const Comments = () => {
       )}
       {isAddingComment && (
         <NewCommentForm
-          quoteId={params.quoteId}
+          quoteId={quoteId}
           onAddedComment={addedCommentHandler}
         />
       )}
