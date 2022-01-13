@@ -18,6 +18,27 @@ const AuthForm = () => {
 
     if (isLogin) {
     } else {
+      fetch(
+        "https:identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvsMvXMt6usWh0ILKqJzqQKDoDspd9jWM",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            returnSecureToken: true,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      ).then((response) => {
+        if (response.ok) {
+          // ok
+        } else {
+          return response.json().then((data) => {
+            // show error modal
+            console.log(data);
+          });
+        }
+      });
     }
   };
 
