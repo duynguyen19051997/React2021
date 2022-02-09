@@ -1,13 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../store/auth-context";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const authContext = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -21,34 +26,47 @@ const AuthForm = () => {
     setIsLoading(true);
     let url = "";
     if (isLogin) {
+      url =
+        "https:identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvsMvXMt6usWh0ILKqJzqQKDoDspd9jWM";
     } else {
-      fetch(
-        "https:identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvsMvXMt6usWh0ILKqJzqQKDoDspd9jWM",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      ).then((response) => {
+      url =
+        "https:identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvsMvXMt6usWh0ILKqJzqQKDoDspd9jWM";
+    }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
         setIsLoading(false);
         if (response.ok) {
           // ok
+          return response.json();
         } else {
           return response.json().then((data) => {
             // show error modal
             let errorMessage = "Authentication failed!";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-            }
-            alert(errorMessage);
+            // if (data && data.error && data.error.message) {
+            //   errorMessage = data.error.message;
+            // }
+            throw new Error(errorMessage);
           });
         }
+      })
+      .then((data) => {
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        authContext.login(data.idToken, expirationTime);
+        history.replace("/");
+      })
+      .catch((err) => {
+        alert(err.message);
       });
-    }
   };
 
   return (
