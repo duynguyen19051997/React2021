@@ -10,7 +10,7 @@ class List extends Component {
   addItemHandler = () => {
     this.setState((prevState) => {
       return {
-        items: prevState.items.concat(prevState.items.length + 1),
+        items: prevState.items.concat(Math.max(...prevState.items) + 1),
       };
     });
   };
