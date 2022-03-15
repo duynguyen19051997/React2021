@@ -37,4 +37,4 @@ function insertAtBeginning<T>(array: T[], value: T) {
 }
 
 const test = insertAtBeginning([1, 2, 3, 4], 0); // [0,1,2,3,4]
-const test1 = insertAtBeginning(['Nguyen', 'Vu', 'Anh', 'Duy'], 'DuyNVA'); // ['DuyNVA', 'Nguyen', 'Vu', 'Anh', 'Duy'] 
+const test1 = insertAtBeginning(['Nguyen', 'Vu', 'Anh', 'Duy'], 'DuyNVA'); // ['DuyNVA',  'Nguyen', 'Vu', 'Anh', 'Duy'] 
