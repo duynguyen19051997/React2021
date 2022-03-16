@@ -1,20 +1,42 @@
-import React from "react";
+import { NewTodo } from "./components/NewTodo";
 import { Todos } from "./components/Todos";
-import { Todo } from "./models/todo";
+import { TodosContextProvider } from "./stores/todo-context";
 
-const TODO_DUMMY = [
-  new Todo("Learn React"),
-  new Todo("Learn TypeSript"),
-  new Todo("Learn Redux React"),
-];
+// function App() {
+//   const [todos, setTodos] = useState<Todo[]>([
+//     new Todo("Learn React"),
+//     new Todo("Learn Type Script"),
+//     new Todo("Learn Redux React"),
+//   ]);
+
+//   const addTodoHandler = (x: string) => {
+//     setTodos((preTodos) => {
+//       return [new Todo(x), ...preTodos];
+//     });
+//   };
+
+//   const deleteTodoHandler = (x: string) => {
+//     setTodos((preTodos) => {
+//       return preTodos.filter((t) => t.id !== x);
+//     });
+//   };
+
+//   return (
+//     <div>
+//       <React.StrictMode>
+//         <NewTodo onAddTodo={addTodoHandler} />
+//         <Todos items={todos} onDeleteTodo={deleteTodoHandler} />
+//       </React.StrictMode>
+//     </div>
+//   );
+// }
 
 function App() {
   return (
-    <div>
-      <React.StrictMode>
-        <Todos items={TODO_DUMMY} />
-      </React.StrictMode>
-    </div>
+    <TodosContextProvider>
+      <NewTodo />
+      <Todos />
+    </TodosContextProvider>
   );
 }
 

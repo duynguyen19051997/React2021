@@ -1,5 +1,14 @@
 import React from "react";
 
-export const TodoItem: React.FC<{ text: string }> = (props) => {
-  return <li>{props.text}</li>;
+import classes from "./TodoItem.module.css";
+
+export const TodoItem: React.FC<{
+  text: string;
+  onDeleteTodo: () => void;
+}> = (props) => {
+  return (
+    <li className={classes.item} onClick={props.onDeleteTodo}>
+      {props.text}
+    </li>
+  );
 };
