@@ -17,7 +17,9 @@ const Search = React.memo((props) => {
         "https://react-hooks-update-5052f-default-rtdb.firebaseio.com/ingredients.json" +
           query
       )
-        .then((response) => response.json())
+        .then((response) => {
+          return response.json();
+        })
         .then((responseData) => {
           const loadedIngredients = [];
           for (var key in responseData) {
