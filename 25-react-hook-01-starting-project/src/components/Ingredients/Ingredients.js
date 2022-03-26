@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -38,39 +38,33 @@ function Ingredients() {
       })
       .then((responseData) => {
         setIngredients((prevIngredient) => [
+          ...prevIngredient,
           {
             id: responseData.name,
             ...x,
           },
-          ...prevIngredient,
         ]);
       });
   };
 
   const removeIngredientHandler = (id) => {
-    fetch(
-      "https://react-hooks-update-5052f-default-rtdb.firebaseio.com/ingredients/" +
-        id,
-      {
-        method: "DELETED",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then(() => {
-        setIngredients((prevIngredient) => {
-          return prevIngredient.filter((t) => t.id !== id);
-        });
-      });
+    setIngredients((prevIngredient) => {
+      return prevIngredient.filter((t) => t.id !== id);
+    });
   };
+
+  const searchHandler = useCallback(
+    (result) => {
+      setIngredients(result);
+    },
+    [setIngredients]
+  );
 
   return (
     <div className="App">
       <IngredientForm onAddIngredient={addIngredientHandler} />
       <section>
-        <Search />
+        <Search onSearch={searchHandler} />
         <IngredientList
           ingredients={ingredients}
           onRemoveIngredient={removeIngredientHandler}
